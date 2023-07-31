@@ -1,3 +1,15 @@
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  #autoconfigure:
+  #  exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    url: jdbc:mariadb://192.168.15.132:3306/ju_market
+    username: tqi
+    password: tqi
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true

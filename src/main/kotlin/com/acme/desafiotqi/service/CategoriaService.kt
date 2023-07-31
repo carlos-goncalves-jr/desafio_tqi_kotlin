@@ -1,22 +1,29 @@
 package com.acme.desafiotqi.service
 
 import com.acme.desafiotqi.model.Categoria
+import com.acme.desafiotqi.repository.CategoriaRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class CategoriaService {
 
-    fun findById(id: Long?): Categoria? = Categoria(5L, "Padaria") ?: null
+    @Autowired
+    lateinit var categoriaRepository : CategoriaRepository
+
+    fun findById(id: Long): Categoria? {
+        var temp = categoriaRepository.findById(id)
+        return temp.get()
+    }
 
     fun create(categoria: Categoria): Categoria {
-        val novaCategoria = Categoria(nome = categoria.nome)
-        return novaCategoria
+        return categoriaRepository.save(Categoria(nome = categoria.nome))
     }
 
     fun update(id: Long, novaCategoria: Categoria) : Categoria? {
-        var categoriaAtual: Categoria? = findById(novaCategoria.id)
-        categoriaAtual?.nome = novaCategoria.nome
-        return categoriaAtual
+//        var categoriaAtual: Categoria? = findById(novaCategoria.id)
+//        categoriaAtual?.nome = novaCategoria.nome
+        return null
     }
 
 }
