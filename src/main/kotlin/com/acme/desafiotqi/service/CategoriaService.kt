@@ -11,7 +11,13 @@ class CategoriaService {
     @Autowired
     lateinit var categoriaRepository : CategoriaRepository
 
-    fun findById(id: Long): Categoria = categoriaRepository.findById(id).get() ?: throw IllegalArgumentException("Id não existente")
+    fun isCategoriaExistent(nome: String) : Boolean = categoriaRepository.existsByNome(nome)
+
+    fun findById(id: Long): Categoria = categoriaRepository.findById(id).get()
+
+    fun findAll() : List<Categoria> = categoriaRepository.findAll()
+
+    fun deleteById(id: Long) = categoriaRepository.deleteById(id)
 
     fun create(categoria: Categoria): Categoria {
         return when(isCategoriaExistent(categoria.nome)) {
@@ -21,16 +27,12 @@ class CategoriaService {
     }
 
     fun update(id: Long, novaCategoria: Categoria) : Categoria {
-        var categoriaAtual = findById(id)
+        val categoriaAtual = findById(id)
         when(isCategoriaExistent(novaCategoria.nome)) {
             true -> throw IllegalArgumentException("Nome já cadastrado")
             false -> categoriaAtual.nome = novaCategoria.nome
         }
         return categoriaRepository.save(categoriaAtual)
     }
-
-    fun isCategoriaExistent(nome: String) : Boolean = categoriaRepository.existsByNome(nome)
-
-
 
 }
