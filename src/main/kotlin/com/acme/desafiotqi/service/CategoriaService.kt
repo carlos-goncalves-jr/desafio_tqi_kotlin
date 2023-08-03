@@ -15,6 +15,8 @@ class CategoriaService {
 
     fun findById(id: Long): Categoria = categoriaRepository.findById(id).get()
 
+    fun findByNome(nome: String): Categoria = categoriaRepository.findByNome(nome)
+
     fun findAll() : List<Categoria> = categoriaRepository.findAll()
 
     fun deleteById(id: Long) = categoriaRepository.deleteById(id)
@@ -34,5 +36,6 @@ class CategoriaService {
         }
         return categoriaRepository.save(categoriaAtual)
     }
+
 
 }

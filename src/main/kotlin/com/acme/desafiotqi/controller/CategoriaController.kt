@@ -19,12 +19,15 @@ class CategoriaController {
     @GetMapping("/categorias/{id}")
     fun findById(@PathVariable id: Long) : ResponseEntity<Categoria> = ResponseEntity.ok(categoriaService.findById(id))
 
+    @GetMapping("/categorias/nome/{nome}")
+    fun findByNome(@PathVariable nome: String) : ResponseEntity<Categoria> = ResponseEntity.ok(categoriaService.findByNome(nome))
+
     @PutMapping("/categorias/{id}")
     fun update(@PathVariable id: Long, @RequestBody novaCategoria: Categoria) : ResponseEntity<Categoria> {
         return ResponseEntity.ok(categoriaService.update(id, novaCategoria))
     }
 
-    @PostMapping("/categorias/cadastro")
+    @PostMapping("/categorias")
     fun create(@RequestBody categoria: Categoria): ResponseEntity<Categoria>  = ResponseEntity(categoriaService.create(categoria), HttpStatus.CREATED)
 
     @DeleteMapping("/categorias/{id}")

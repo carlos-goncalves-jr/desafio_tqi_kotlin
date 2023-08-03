@@ -10,4 +10,6 @@ interface CategoriaRepository : JpaRepository<Categoria, Long> {
 
     fun findByNome(nome: String) : Categoria
 
+    fun deleteByid(id : Long)
+
 }

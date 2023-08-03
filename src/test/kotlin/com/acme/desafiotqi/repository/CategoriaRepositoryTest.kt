@@ -59,4 +59,12 @@ class CategoriaRepositoryTest {
         assertThat(categoriaRepository.findByNome("Padaria").id).isNotNull()
     }
 
+    @Test
+    fun categoriaRepositoryDeleteById(){
+        val savedCategoriaId: Long? = categoriaRepository.findByNome(nome = "Peixaria").id
+        categoriaRepository.deleteById(savedCategoriaId!!)
+        val listaCategoriasRestantes : List<Categoria> = categoriaRepository.findAll()
+
+        assertThat(listaCategoriasRestantes.size).isEqualTo(3)
+    }
 }
