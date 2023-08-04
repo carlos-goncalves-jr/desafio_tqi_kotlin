@@ -32,7 +32,7 @@ class CategoriaRepositoryTest {
     }
 
     @Test
-    fun categoriaRepositoryExistsByNomeTest() {
+    fun categoriaRepository_ExistsByNome() {
         val existsSavedCategoria: Boolean  = categoriaRepository.existsByNome(nome = "Bebidas")
 
         assertThat(existsSavedCategoria).isNotNull
@@ -40,7 +40,7 @@ class CategoriaRepositoryTest {
     }
 
     @Test
-    fun categoriaRepositoryFindByNomeTest() {
+    fun categoriaRepository_FindByNome() {
         val savedCategoria: Categoria = categoriaRepository.findByNome(nome = "Peixaria")
 
         assertThat(savedCategoria).isNotNull()
@@ -49,18 +49,18 @@ class CategoriaRepositoryTest {
     }
 
     @Test
-    fun categoriaRepositoryFindAllTest(){
+    fun categoriaRepository_FindAll(){
         assertThat(listaDeCategorias.size).isEqualTo(4)
         assertThat(listaDeCategorias).isNotNull
     }
 
     @Test
-    fun categoriaRepositoryCheckId(){
+    fun categoriaRepository_CheckId(){
         assertThat(categoriaRepository.findByNome("Padaria").id).isNotNull()
     }
 
     @Test
-    fun categoriaRepositoryDeleteById(){
+    fun categoriaRepository_DeleteById(){
         val savedCategoriaId: Long? = categoriaRepository.findByNome(nome = "Peixaria").id
         categoriaRepository.deleteById(savedCategoriaId!!)
         val listaCategoriasRestantes : List<Categoria> = categoriaRepository.findAll()
