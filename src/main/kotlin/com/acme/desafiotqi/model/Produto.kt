@@ -13,6 +13,9 @@ data class Produto(
     @Enumerated(EnumType.STRING)
     var unidadeDeMedida : UnidadeDeMedida,
     var precoUnitario : Double,
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    var categoria : Categoria
 )
 
 

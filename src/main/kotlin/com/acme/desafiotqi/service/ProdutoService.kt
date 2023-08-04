@@ -1,6 +1,7 @@
 package com.acme.desafiotqi.service
 
 import com.acme.desafiotqi.model.Produto
+import com.acme.desafiotqi.repository.CategoriaRepository
 import com.acme.desafiotqi.repository.ProdutoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -10,6 +11,9 @@ class ProdutoService {
 
     @Autowired
     lateinit var produtoRepository : ProdutoRepository
+
+    @Autowired
+    lateinit var categoriaRepository: CategoriaRepository
 
     fun findById(id: Long): Produto = produtoRepository.findById(id).get()
     fun findAll(): List<Produto> = produtoRepository.findAll()
@@ -25,7 +29,9 @@ class ProdutoService {
             false -> produtoRepository.save(
                 Produto(nome = produto.nome,
                     precoUnitario = produto.precoUnitario,
-                    unidadeDeMedida = produto.unidadeDeMedida))
+                    unidadeDeMedida = produto.unidadeDeMedida,
+                    categoria = categoriaRepository.findByNome(produto.categoria.nome)
+                ))
         }
     }
 
@@ -37,6 +43,7 @@ class ProdutoService {
                 novoProduto.nome.also { produtoAtual.nome = it }
                 novoProduto.precoUnitario.also { produtoAtual.precoUnitario = it }
                 novoProduto.unidadeDeMedida.also { produtoAtual.unidadeDeMedida = it }
+                novoProduto.categoria.also { produtoAtual.categoria = categoriaRepository.findByNome(it.nome) }
                 return produtoRepository.save(produtoAtual)
             }
         }

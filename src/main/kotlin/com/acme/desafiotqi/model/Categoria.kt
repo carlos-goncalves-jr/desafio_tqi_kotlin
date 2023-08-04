@@ -1,5 +1,6 @@
 package com.acme.desafiotqi.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -8,5 +9,9 @@ data class Categoria (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var nome: String
-)
+    var nome: String = "empty",
+
+    @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
+    var produtos : List<Produto> = mutableListOf()
+    )
