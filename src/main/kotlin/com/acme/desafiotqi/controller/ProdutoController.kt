@@ -25,4 +25,13 @@ class ProdutoController {
     @PostMapping("/produtos")
     fun create(@RequestBody produto: Produto): ResponseEntity<Produto> = ResponseEntity(produtoService.create(produto), HttpStatus.CREATED)
 
+    @PutMapping("/produtos/{id}")
+    fun update(@PathVariable id: Long, @RequestBody novoProduto : Produto) : ResponseEntity<Produto> = ResponseEntity.ok(produtoService.update(id, novoProduto))
+
+    @DeleteMapping("/produtos/{id}")
+    fun delete(@PathVariable id : Long) : ResponseEntity<HttpStatus> {
+        produtoService.deleteById(id)
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT)
+    }
+
 }

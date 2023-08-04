@@ -16,6 +16,9 @@ class ProdutoService {
     fun findByNome(nome: String): Produto? = produtoRepository.findByNome(nome)
 
     fun isProdutoExistent(nome : String) : Boolean = produtoRepository.existsByNome(nome)
+
+    fun deleteById(id: Long) = produtoRepository.deleteById(id)
+
     fun create(produto: Produto): Produto {
         return when (isProdutoExistent(produto.nome)) {
             true -> produtoRepository.findByNome(produto.nome)
@@ -26,5 +29,17 @@ class ProdutoService {
         }
     }
 
+    fun update(id: Long, novoProduto: Produto): Produto {
+        var produtoAtual : Produto = produtoRepository.findById(id).get()
+        when(isProdutoExistent(novoProduto.nome)) {
+            true -> throw IllegalArgumentException("Produto já cadastrado")
+            false -> {
+                novoProduto.nome.also { produtoAtual.nome = it }
+                novoProduto.precoUnitario.also { produtoAtual.precoUnitario = it }
+                novoProduto.unidadeDeMedida.also { produtoAtual.unidadeDeMedida = it }
+                return produtoRepository.save(produtoAtual)
+            }
+        }
+    }
 
 }

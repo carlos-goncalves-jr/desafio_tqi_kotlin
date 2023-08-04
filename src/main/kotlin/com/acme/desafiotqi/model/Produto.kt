@@ -9,9 +9,9 @@ data class Produto(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id : Long? = null,
-    val nome : String,
+    var nome : String,
     @Enumerated(EnumType.STRING)
-    val unidadeDeMedida : UnidadeDeMedida,
+    var unidadeDeMedida : UnidadeDeMedida,
     var precoUnitario : Double,
 )
 
